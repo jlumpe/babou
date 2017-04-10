@@ -239,7 +239,8 @@ class Surreal(numbers.Number, metaclass=SurrealMeta):
 		:param int value: Integer value.
 		:rtype: .Surreal
 		"""
-		raise NotImplementedError()
+		from .dyadic import IntegerSurreal
+		return IntegerSurreal(value)
 
 	@staticmethod
 	def from_float(value):
@@ -248,7 +249,11 @@ class Surreal(numbers.Number, metaclass=SurrealMeta):
 		:param float value: Float value.
 		:rtype: .Surreal
 		"""
-		raise NotImplementedError()
+		value = float(value)
+		if value.is_integer():
+			return Surreal.from_int(value)
+		else:
+			raise NotImplementedError()
 
 	@staticmethod
 	def from_string(value):
